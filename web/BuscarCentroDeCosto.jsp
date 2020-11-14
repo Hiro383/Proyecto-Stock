@@ -86,9 +86,30 @@
                                             <tr>
                                                 <td><%= objCentroCosto.getCodigo_centro_costo() %></td>
                                                 <td><%= objCentroCosto.getNombre_centro_costo() %></td>
-                                                <td><%= objCentroCosto.getFecha_compra_centro_costo() %></td>
-                                                <td><%= objCentroCosto.getTotalGasto_centro_costo() %></td>
-                                                <td><%= objCentroCosto.getCodigo_area() %></td>                                
+                                                <td><% if(objCentroCosto.getFecha_compra_centro_costo() != null){%>
+                                                        <%=objCentroCosto.getFecha_compra_centro_costo()%>
+                                                       <%}
+                                                       else
+                                                       {%>
+                                                    <i>null</i>
+                                                       <%
+                                                        }
+                                                    %>
+                                                </td>
+                                                <td>
+                                                       <%= objCentroCosto.getTotalGasto_centro_costo() %>
+                                                </td>
+                                                <td><%
+                                                        if(objCentroCosto.getCodigo_area() !=null){ %>
+                                                            <%=objCentroCosto.getCodigo_area()%>
+                                                         <%}
+                                                         else
+                                                       {%>
+                                                    <i>null</i>
+                                                       <%
+                                                        }
+                                                %>
+                                                </td>                             
                                                 <td> <%= objCentroCosto.getNombre_centro_costo()%></td>
                                                 <td>
                                                     <a href="ModCentroCosto?codigo_centro_costo=<%= objCentroCosto.getCodigo_centro_costo() %>" class="btn btn-datatable btn-icon btn-transparent-dark" role="button" aria-pressed="true"><i data-icon="Y"></i></a>

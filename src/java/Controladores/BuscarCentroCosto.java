@@ -87,9 +87,7 @@ public class BuscarCentroCosto extends HttpServlet {
             c.getNombre_centro_costo();
             c.getFecha_compra_centro_costo();
             c.getTotalGasto_centro_costo();
-            c.getCodigo_area();
-            
-                        
+            c.getCodigo_area();          
         }
         ses.setAttribute("lstBuscarCentroCosto", lista);
         response.sendRedirect("BuscarCentroDeCosto.jsp");

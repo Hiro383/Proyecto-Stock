@@ -98,19 +98,53 @@
                                     <%
                                         while (iter.hasNext()) {
                                             objCentroCosto = iter.next(); 
-                                            String codigo_area = objCentroCosto.getCodigo_area();
-                                            objAreaXID.setCodigo_area(codigo_area);
-                                            objAreaXID = objAreaDAO.buscarPorId(objAreaXID);
+                                            if(objCentroCosto.getCodigo_area() != null)
+                                            {
+                                                String codigo_area = objCentroCosto.getCodigo_area();
+                                                objAreaXID.setCodigo_area(codigo_area);
+                                                objAreaXID = objAreaDAO.buscarPorId(objAreaXID);
+                                            }
+                                            
 
                                     %>
                                         <tbody>
                                             <tr>
                                                 <td><%= objCentroCosto.getCodigo_centro_costo() %></td>
                                                 <td><%= objCentroCosto.getNombre_centro_costo() %></td>
-                                                <td><%= fechaCentroCosto = formatter.format(objCentroCosto.getFecha_compra_centro_costo()) %></td>
-                                                <td>$<%= objCentroCosto.getTotalGasto_centro_costo() %></td>
-                                                <td><%= objAreaXID.getCodigo_area()%></td>       
-                                                <td><%= objAreaXID.getNombre_area()%></td>
+                                                <td><% if(objCentroCosto.getFecha_compra_centro_costo() !=null){%>
+                                                        <%=fechaCentroCosto = formatter.format(objCentroCosto.getFecha_compra_centro_costo())%>
+                                                       <%}
+                                                       else
+                                                       {%>
+                                                    <i>null</i>
+                                                       <%
+                                                        }
+                                                    %>
+                                                </td>
+                                                <td>
+                                                       <%= objCentroCosto.getTotalGasto_centro_costo() %>
+                                                </td>
+                                                <td><%
+                                                        if(objCentroCosto.getCodigo_area() !=null){ %>
+                                                            <%=objAreaXID.getCodigo_area()%>
+                                                         <%}
+                                                         else
+                                                       {%>
+                                                    <i>null</i>
+                                                       <%
+                                                        }
+                                                %>
+                                                </td>       
+                                                <td><%
+                                                    if(objCentroCosto.getCodigo_area() !=null){ %>
+                                                        <%=objAreaXID.getNombre_area()%>
+                                                    <%}
+                                                    else
+                                                       {%>
+                                                    <i>null</i>
+                                                       <%
+                                                        }
+                                                %></td>
                                                 <td>
                                                     <a href="ModCentroCosto?codigo_centro_costo=<%= objCentroCosto.getCodigo_centro_costo() %>" class="btn btn-datatable btn-icon btn-transparent-dark" role="button" aria-pressed="true"><i data-icon="Y"></i></a>
                                                     <a href="DelCentroCosto?codigo_centro_costo=<%= objCentroCosto.getCodigo_centro_costo() %>" class="btn btn-datatable btn-icon btn-transparent-dark" role="button" aria-pressed="true"><i data-feather="trash-2"></i></a>
@@ -118,7 +152,7 @@
 
                                             </tr>
                                                 <% } %>  
-                                                 <% } %> 
+                                            <% } %> 
                                         </tbody>
                                     </table>
                                 </div>
@@ -139,5 +173,4 @@
         
     </body>
 </html>
-
 

@@ -158,9 +158,18 @@ public class CentroCostoDAO implements CRUDCentroCosto{
             CentroCosto c = new CentroCosto();
             c.setCodigo_centro_costo(rs.getString("codigo_centro_costo"));
             c.setNombre_centro_costo(rs.getString("nombre_centro_costo"));
-            c.setFecha_compra_centro_costo(rs.getDate("fecha_compra_centro_costo"));
-            c.setTotalGasto_centro_costo(Integer.parseInt(rs.getString("totalGasto_centro_costo")));
-            c.setCodigo_area(rs.getString("codigo_area"));
+            if(rs.getDate("fecha_compra_centro_costo") != null)
+            {
+                c.setFecha_compra_centro_costo(rs.getDate("fecha_compra_centro_costo"));
+            }
+            if(rs.getString("totalGasto_centro_costo") != null)
+            {
+                c.setTotalGasto_centro_costo(Integer.parseInt(rs.getString("totalGasto_centro_costo")));
+            }
+            if(rs.getString("codigo_area") != null)
+            {
+                c.setCodigo_area(rs.getString("codigo_area"));
+            }
             
             lista.add(c);
         }
@@ -184,18 +193,14 @@ public class CentroCostoDAO implements CRUDCentroCosto{
                 if(rs.getDate("fecha_compra_centro_costo") != null)
                 {
                     objCentroCosto.setFecha_compra_centro_costo(rs.getDate("fecha_compra_centro_costo"));
-                    System.out.println(objCentroCosto.getFecha_compra_centro_costo());
                 }
-                else
                 if(rs.getString("totalGasto_centro_costo") != null)
                 {
                     objCentroCosto.setTotalGasto_centro_costo(Integer.parseInt(rs.getString("totalGasto_centro_costo")));
-                    System.out.println(objCentroCosto.getTotalGasto_centro_costo());
                 }
                 if(rs.getString("codigo_area") != null)
                 {
                     objCentroCosto.setCodigo_area(rs.getString("codigo_area"));
-                    System.out.println(objCentroCosto.getCodigo_area());
                 }
             }
             return c;
@@ -256,8 +261,9 @@ public class CentroCostoDAO implements CRUDCentroCosto{
                 }
             }
             
-            if(buscando)
+            if(buscando == true)
             {
+                System.out.println("Buscando!");
                 return false;
             }
             
