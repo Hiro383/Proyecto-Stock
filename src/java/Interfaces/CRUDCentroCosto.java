@@ -19,4 +19,5 @@ public interface CRUDCentroCosto {
     public CentroCosto eliminarCentroCosto(CentroCosto objCentroCosto);
     public ArrayList<CentroCosto> listaCentroCosto();
     public List buscar (String texto);
+    public boolean insercionMasiva(String path);
 }
