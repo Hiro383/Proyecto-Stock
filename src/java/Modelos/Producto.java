@@ -13,7 +13,8 @@ import java.util.Date;
  * @author Felipe
  */
 public class Producto {
-    private String codigo_producto;
+
+    private String id_producto;
     private String nombre_producto;
     private String descripcion_producto;
     private String estado_producto;
@@ -27,7 +28,9 @@ public class Producto {
     private Date fecha_ingreso_producto;
     private Date fecha_salida_producto;
     private Date fecha_capital_producto;
+    private Date fecha_vencimiento_producto;
     private int codigo_activo_producto;
+    private int numero_orden_compra;
     private String codigo_bodega;
     private int id_tipo_producto;
     private int id_tipo_unidad;
@@ -35,8 +38,8 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(String codigo_producto, String nombre_producto, String descripcion_producto, String estado_producto, int cantidad_producto, int valorNeto_producto, int valorIva_producto, int valorTotal_producto, String marca_producto, String serial_producto, int stock_minimo_producto, Date fecha_ingreso_producto, Date fecha_salida_producto, Date fecha_capital_producto, int codigo_activo_producto, String codigo_bodega, int id_tipo_producto, int id_tipo_unidad) {
-        this.codigo_producto = codigo_producto;
+    public Producto(String id_producto, String nombre_producto, String descripcion_producto, String estado_producto, int cantidad_producto, int valorNeto_producto, int valorIva_producto, int valorTotal_producto, String marca_producto, String serial_producto, int stock_minimo_producto, Date fecha_ingreso_producto, Date fecha_salida_producto, Date fecha_capital_producto, Date fecha_vencimiento_producto, int codigo_activo_producto, int numero_orden_compra, String codigo_bodega, int id_tipo_producto, int id_tipo_unidad) {
+        this.id_producto = id_producto;
         this.nombre_producto = nombre_producto;
         this.descripcion_producto = descripcion_producto;
         this.estado_producto = estado_producto;
@@ -50,18 +53,20 @@ public class Producto {
         this.fecha_ingreso_producto = fecha_ingreso_producto;
         this.fecha_salida_producto = fecha_salida_producto;
         this.fecha_capital_producto = fecha_capital_producto;
+        this.fecha_vencimiento_producto = fecha_vencimiento_producto;
         this.codigo_activo_producto = codigo_activo_producto;
+        this.numero_orden_compra = numero_orden_compra;
         this.codigo_bodega = codigo_bodega;
         this.id_tipo_producto = id_tipo_producto;
         this.id_tipo_unidad = id_tipo_unidad;
     }
 
-    public String getCodigo_producto() {
-        return codigo_producto;
+    public String getId_producto() {
+        return id_producto;
     }
 
-    public void setCodigo_producto(String codigo_producto) {
-        this.codigo_producto = codigo_producto;
+    public void setId_producto(String id_producto) {
+        this.id_producto = id_producto;
     }
 
     public String getNombre_producto() {
@@ -168,12 +173,28 @@ public class Producto {
         this.fecha_capital_producto = fecha_capital_producto;
     }
 
+    public Date getFecha_vencimiento_producto() {
+        return fecha_vencimiento_producto;
+    }
+
+    public void setFecha_vencimiento_producto(Date fecha_vencimiento_producto) {
+        this.fecha_vencimiento_producto = fecha_vencimiento_producto;
+    }
+
     public int getCodigo_activo_producto() {
         return codigo_activo_producto;
     }
 
     public void setCodigo_activo_producto(int codigo_activo_producto) {
         this.codigo_activo_producto = codigo_activo_producto;
+    }
+
+    public int getNumero_orden_compra() {
+        return numero_orden_compra;
+    }
+
+    public void setNumero_orden_compra(int numero_orden_compra) {
+        this.numero_orden_compra = numero_orden_compra;
     }
 
     public String getCodigo_bodega() {
@@ -200,6 +221,4 @@ public class Producto {
         this.id_tipo_unidad = id_tipo_unidad;
     }
 
-    
-    
 }

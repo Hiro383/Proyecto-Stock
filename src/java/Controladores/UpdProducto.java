@@ -80,7 +80,7 @@ public class UpdProducto extends HttpServlet {
             ProductoDAO objUsuarioDAO = new ProductoDAO();
             Producto objProducto = new Producto();
             Producto objProMod = new Producto();
-            objProducto.setCodigo_producto(request.getParameter("txtCodigo_producto"));
+            objProducto.setId_producto(request.getParameter("txtId_producto"));
             objProducto.setNombre_producto(request.getParameter("txtNombre_producto"));
             objProducto.setDescripcion_producto(request.getParameter("txtDescripcion_producto"));
             objProducto.setCantidad_producto(Integer.parseInt(request.getParameter("txtCantidad_producto")));
@@ -125,8 +125,15 @@ public class UpdProducto extends HttpServlet {
             } catch (ParseException ex) {
                 System.out.print(ex);
             }
+            try {
+                Date startDate=new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dtpFechaVencimiento"));
+                objProducto.setFecha_vencimiento_producto(startDate);
+            } catch (ParseException ex) {
+                System.out.print(ex);
+            }
 
             objProducto.setCodigo_activo_producto(Integer.parseInt(request.getParameter("txtCodigo_activo_producto")));
+            objProducto.setNumero_orden_compra(Integer.parseInt(request.getParameter("txtNumero_orden_compra")));
             objProducto.setCodigo_bodega(request.getParameter("txtCodigo_bodega"));
             objProducto.setId_tipo_producto(Integer.parseInt(request.getParameter("txtId_tipo_producto")));
             objProducto.setId_tipo_unidad(Integer.parseInt(request.getParameter("txtId_tipo_unidad")));

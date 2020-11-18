@@ -64,13 +64,13 @@ public class ModProducto extends HttpServlet {
             Producto objPro = new Producto();
             Producto objProMod = new Producto();
             
-            String codigo_producto = request.getParameter("codigo_producto");
-            objPro.setCodigo_producto(codigo_producto);
+            String id_producto = request.getParameter("id_producto");
+            objPro.setId_producto(id_producto);
         
             objProMod = objProductoDAO.buscarPorId(objPro);
         
             ses.setAttribute("objPro", objProMod);
-            ses.setAttribute("codigo_producto", codigo_producto);
+            ses.setAttribute("id_producto", id_producto);
             
             response.sendRedirect("EditarProducto.jsp");
     }

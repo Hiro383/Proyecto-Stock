@@ -83,7 +83,7 @@ public class BuscarProducto extends HttpServlet {
             String dato = request.getParameter("txtBuscar");
             List<Producto> lista = objDAOProducto.buscar(dato);
             for (Producto u : lista) {
-                u.getCodigo_producto();
+                u.getId_producto();
                 u.getNombre_producto();
                 u.getDescripcion_producto();
                 u.getEstado_producto();
@@ -97,7 +97,9 @@ public class BuscarProducto extends HttpServlet {
                 u.getFecha_ingreso_producto();
                 u.getFecha_salida_producto();
                 u.getFecha_capital_producto();
+                u.getFecha_vencimiento_producto();
                 u.getCodigo_activo_producto();
+                u.getNumero_orden_compra();
                 u.getCodigo_bodega();
                 u.getId_tipo_producto();
                 u.getId_tipo_unidad();

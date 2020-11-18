@@ -19,6 +19,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Tabla Sedes</title>
+        <link href="css/estilos.css" rel="stylesheet" type="text/css"/>
         <link href="css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <link rel="icon" type="image/x-icon" href="assets/img/favicon.png" />
@@ -65,13 +66,13 @@
                                         </label>
                                     </div>
                                 </form>
-                                <div class="datatable table-responsive" style="overflow-x: auto;">
+                                <div  class="datatable table-responsive" style="overflow-x: auto;">
                                     <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
+                                        <thead style="white-space: nowrap;">
                                              <tr>
                                                 <th>Codigo Producto</th>
                                                 <th>Nombre Producto</th>
-                                                <th>Descripción Producto</th>
+                                                <th>Descripci?n Producto</th>
                                                 <th>Estado Producto</th>
                                                 <th>Valor Neto</th>
                                                 <th>Valor IVA</th>
@@ -83,8 +84,10 @@
                                                 <th>Fecha Ingreso</th>
                                                 <th>Fecha Salida</th>
                                                 <th>Fecha Capital</th>
+                                                <th>Fecha Vencimiento</th>
                                                 <th>Codigo Activo</th>
-                                                <th>Ubicación Bodega</th>
+                                                <th>Numero Orden Compra</th>
+                                                <th>Ubicaci?n Bodega</th>
                                                 <th>Tipo Producto</th>
                                                 <th>Tipo Unidad</th>
 						<th colspan="2">Acciones</th>
@@ -126,6 +129,7 @@
                                             String fechaIngreso = "";
                                             String fechaSalida = "";
                                             String fechaCapital = "";
+                                            String fechaVencimiento = "";
                                             
                                             DecimalFormat formateador = new DecimalFormat("###,###,###");
                                             
@@ -174,41 +178,43 @@
                                             
                                            
                                             
-                                        <tbody>
+                                        <tbody style="white-space: normal;">
                                             <tr >
-                                                <td><%= objProducto.getCodigo_producto()%></td>
+                                                <td><%= objProducto.getId_producto()%></td>
                                                 <td><%= objProducto.getNombre_producto()%></td>
                                                 <td><%= objProducto.getDescripcion_producto()%></td>
-                                                <td><%
+                                                <td style="text-align: center;"><%
                                                     if(objProducto.getEstado_producto().equalsIgnoreCase("Stock")){
                                                         %>
-                                                        <div class="badge badge-success badge-pill"><%=objProducto.getEstado_producto()%></div>
+                                                        <div  class="badge badge-success badge-pill"><%=objProducto.getEstado_producto()%></div>
                                                     <%}else if(objProducto.getEstado_producto().equalsIgnoreCase("Reponer Stock")){
                                                         %>
                                                         <div class="badge badge-warning badge-pill"><%=objProducto.getEstado_producto()%></div>
                                                      <%}else{
                                                      %>
-                                                        <div class="badge badge-danger badge-pill"><%=objProducto.getEstado_producto()%></div>
+                                                     <div class="badge badge-danger badge-pill" ><%=objProducto.getEstado_producto()%></div>
                                                      <%}
                                                     %>
                                                 </td>
                                                 <td>$<%= formateador.format(objProducto.getValorNeto_producto())%></td>
                                                 <td>$<%= formateador.format(objProducto.getValorIva_producto())%></td>
                                                 <td><%= objProducto.getCantidad_producto()%></td>
-                                                <td>$<%= formateador.format(objProducto.getValorTotal_producto())%></td>
+                                                <td >$<%= formateador.format(objProducto.getValorTotal_producto())%></td>                                  
                                                 <td><%= objProducto.getMarca_producto()%></td>
                                                 <td><%= objProducto.getSerial_producto()%></td>
                                                 <td><%= objProducto.getStock_minimo_producto()%></td>
-                                                <td><%= fechaIngreso = formatter.format(objProducto.getFecha_ingreso_producto())%></td>
-                                                <td><%= fechaSalida = formatter.format(objProducto.getFecha_salida_producto())%></td>
+                                                <td ><%= fechaIngreso = formatter.format(objProducto.getFecha_ingreso_producto())%></td>
+                                                <td ><%= fechaSalida = formatter.format(objProducto.getFecha_salida_producto())%></td>
                                                 <td ><%= fechaCapital = formatter.format(objProducto.getFecha_capital_producto())%></td>
+                                                <td ><%= fechaVencimiento = formatter.format(objProducto.getFecha_vencimiento_producto())%></td>
                                                 <td><%= objProducto.getCodigo_activo_producto()%></td>
+                                                <td><%= objProducto.getNumero_orden_compra()%></td>
                                                 <td><%= objBodegaXID.getUbicacion_bodega()%></td>
                                                 <td><%= objTipoProductoXID.getCategoria_tipo_producto()%></td>
                                                 <td><%= objTipoUnidadXID.getNombre_unidad()%></td>
                                                 <td>
-                                                    <a href="ModProducto?codigo_producto=<%= objProducto.getCodigo_producto()%>" class="btn btn-datatable btn-icon btn-transparent-dark" role="button" aria-pressed="true"><i data-icon="Y"></i></a>
-                                                    <a href="DelProducto?codigo_producto=<%= objProducto.getCodigo_producto()%>" class="btn btn-datatable btn-icon btn-transparent-dark" role="button" aria-pressed="true"><i data-feather="trash-2"></i></a>
+                                                    <a href="ModProducto?id_producto=<%= objProducto.getId_producto()%>" class="btn btn-datatable btn-icon btn-transparent-dark" role="button" aria-pressed="true"><i data-icon="Y"></i></a>
+                                                    <a href="DelProducto?id_producto=<%= objProducto.getId_producto()%>" class="btn btn-datatable btn-icon btn-transparent-dark" role="button" aria-pressed="true"><i data-feather="trash-2"></i></a>
                                                 </td>
                                             </tr>
                                                 <% } %>
