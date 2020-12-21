@@ -161,7 +161,7 @@ public class UsuarioDAO implements CRUDUsuario {
                 p.setCorreo_usuario(rs.getString("correo_usuario"));
                 p.setDireccion_usuario(rs.getString("direccion_usuario"));
                 p.setId_tipo_usuario(rs.getInt("id_tipo_usuario"));
-                p.setCodigo_centro_costo(rs.getString("codigo_centro_costo"));
+                /*p.setCodigo_centro_costo(rs.getString("codigo_centro_costo"));*/
             }
             
             return p;

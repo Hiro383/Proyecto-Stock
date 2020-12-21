@@ -82,10 +82,12 @@ public class InicioSesion extends HttpServlet {
         String rut_usuario = request.getParameter("txtRut_Usuario");
         String password_usuario = request.getParameter("txtPassword_usuario");
         
+        System.out.println(request.getParameter("txtRut_Usuario"));
         objUsuario.setRut_usuario(rut_usuario);
+        System.out.println(objUsuario.getRut_usuario());
         objUsuario = objUsuarioDAO.buscarPorId(objUsuario);
         
-        
+        System.out.println(objUsuario.getId_tipo_usuario());
         int tipo_usuario = objUsuario.getId_tipo_usuario();
         String correo = objUsuario.getCorreo_usuario();
         String nombre = objUsuario.getNombre_usuario();
