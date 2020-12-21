@@ -19,4 +19,5 @@ public interface CRUDProducto {
     public Producto eliminarProducto(Producto objProducto);
     public ArrayList<Producto> listarProducto();
     public List buscar(String texto);
+    public boolean insercionMasiva(String path);
 }

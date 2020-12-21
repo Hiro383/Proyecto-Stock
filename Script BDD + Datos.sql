@@ -111,7 +111,7 @@ INSERT INTO `centro_costo` (`codigo_centro_costo`, `nombre_centro_costo`, `fecha
 CREATE TABLE `detalle_producto` (
   `id_detalle_producto` int(11) NOT NULL,
   `rut_proveedor` varchar(15) NOT NULL,
-  `codigo_producto` varchar(10) NOT NULL
+  `id_producto` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -187,7 +187,7 @@ INSERT INTO `menu` (`id_menu`, `nombre_menu`, `url_menu`, `id_menu_padre`) VALUE
 --
 
 CREATE TABLE `producto` (
-  `codigo_producto` varchar(10) NOT NULL,
+  `id_producto` varchar(10) NOT NULL,
   `nombre_producto` varchar(50) NOT NULL,
   `descripcion_producto` varchar(500) DEFAULT NULL,
   `estado_producto` varchar(20) NOT NULL,
@@ -201,7 +201,9 @@ CREATE TABLE `producto` (
   `fecha_ingreso_producto` datetime NOT NULL DEFAULT current_timestamp(),
   `fecha_salida_producto` datetime NOT NULL DEFAULT current_timestamp(),
   `fecha_capital_producto` datetime NOT NULL DEFAULT current_timestamp(),
+  `fecha_vencimiento_producto` datetime NOT NULL DEFAULT current_timestamp(),
   `codigo_activo_producto` int(11) DEFAULT NULL,
+  `numero_orden_compra` int(10) NOT NULL,
   `codigo_bodega` varchar(10) NOT NULL,
   `id_tipo_producto` int(11) NOT NULL,
   `id_tipo_unidad` int(11) NOT NULL
@@ -211,12 +213,12 @@ CREATE TABLE `producto` (
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`codigo_producto`, `nombre_producto`, `descripcion_producto`, `estado_producto`, `cantidad_producto`, `valorNeto_producto`, `valorIva_producto`, `valorTotal_producto`, `marca_producto`, `serial_producto`, `stock_minimo_producto`, `fecha_ingreso_producto`, `fecha_salida_producto`, `fecha_capital_producto`, `codigo_activo_producto`, `codigo_bodega`, `id_tipo_producto`, `id_tipo_unidad`) VALUES
-('0001', 'Jabon', 'Jabon para Baños', 'Stock', 10, 690, 821, 8210, 'Le Sancy', '00002', 10, '2020-10-28 00:00:00', '2020-10-28 00:00:00', '2020-10-28 00:00:00', 3, '1', 7, 13),
-('0002', 'Arroz', 'Arroz para comer', 'Reponer Stock', 1, 890, 1059, 1059, 'Tucapel', '23123', 5, '2020-10-21 00:00:00', '2020-10-21 00:00:00', '2020-10-21 00:00:00', 123213, '1', 9, 1),
-('123123', 'asdad', 'asdasd', 'Stock', 132, 132, 157, 20724, '132', '1', 321, '2020-10-21 00:00:00', '2020-10-20 00:00:00', '2020-10-19 00:00:00', 32132, 'AH220', 8, 13),
-('12313', 'asdasd', 'asdsadasd', 'Sin Stock', 10, 12313, 14652, 146520, '123213', '23213', 21321313, '2020-10-14 00:00:00', '2020-10-14 00:00:00', '2020-10-14 00:00:00', 12211231, 'BOD512', 7, 1),
-('141414', 'asdas', 'dasada', 'Stock', 123, 123, 146, 17958, 'asd', '1231', 2312, '2020-10-14 00:00:00', '2020-10-14 00:00:00', '2020-10-14 00:00:00', 1212313, 'AH220', 16, 20);
+INSERT INTO `producto` (`id_producto`, `nombre_producto`, `descripcion_producto`, `estado_producto`, `cantidad_producto`, `valorNeto_producto`, `valorIva_producto`, `valorTotal_producto`, `marca_producto`, `serial_producto`, `stock_minimo_producto`, `fecha_ingreso_producto`, `fecha_salida_producto`, `fecha_capital_producto`, `codigo_activo_producto`, `codigo_bodega`, `id_tipo_producto`, `id_tipo_unidad`, `fecha_vencimiento_producto`, `numero_orden_compra`) VALUES
+('0001', 'Jabon', 'Jabon para Baños', 'Stock', 10, 690, 821, 8210, 'Le Sancy', '00002', 10, '2020-10-28 00:00:00', '2020-10-28 00:00:00', '2020-10-28 00:00:00', 3, '1', 7, 13, '2020-11-16 10:21:21', 0),
+('0002', 'Arroz', 'Arroz para comer', 'Reponer Stock', 1, 890, 1059, 1059, 'Tucapel', '23123', 5, '2020-10-21 00:00:00', '2020-10-21 00:00:00', '2020-10-21 00:00:00', 123213, '1', 9, 1, '2020-11-16 10:21:21', 0),
+('001005', 'Mouse', 'Reacondicionados', 'Reponer Stock', 20, 3600, 4284, 85680, 'hp', '001004', 50, '2020-11-16 00:00:00', '2020-11-18 00:00:00', '2020-11-22 00:00:00', 81881, '1', 8, 1, '2020-11-29 00:00:00', 3005),
+('0022', 'Tallarines', 'Numero 78', 'Stock', 22, 650, 774, 17028, 'Carozzi', '332200', 1, '2020-11-16 00:00:00', '2020-11-17 00:00:00', '2020-11-19 00:00:00', 552255, '1', 9, 1, '2020-11-16 10:21:21', 0),
+('12313', 'Editado', 'edit', 'Reponer Stock', 10, 12313, 14652, 146520, '123213', '23213', 21321313, '2020-10-14 00:00:00', '2020-10-14 00:00:00', '2020-10-14 00:00:00', 12211231, 'BOD512', 7, 1, '2020-11-16 00:00:00', 44444);
 
 -- --------------------------------------------------------
 
@@ -524,7 +526,7 @@ ALTER TABLE `centro_costo`
 ALTER TABLE `detalle_producto`
   ADD PRIMARY KEY (`id_detalle_producto`),
   ADD KEY `fk_Detalle_Producto_Proveedor_idx` (`rut_proveedor`),
-  ADD KEY `fk_Detalle_Producto_Producto_idx` (`codigo_producto`);
+  ADD KEY `fk_Detalle_Producto_Producto_idx` (`id_producto`);
 
 --
 -- Indices de la tabla `menu`
@@ -537,7 +539,7 @@ ALTER TABLE `menu`
 -- Indices de la tabla `producto`
 --
 ALTER TABLE `producto`
-  ADD PRIMARY KEY (`codigo_producto`),
+  ADD PRIMARY KEY (`id_producto`),
   ADD KEY `fk_Producto_Tipo_Producto_idx` (`id_tipo_producto`),
   ADD KEY `fk_Producto_Bodega_idx` (`codigo_bodega`),
   ADD KEY `fk_Producto_Tipo_Unidad_idx` (`id_tipo_unidad`);
@@ -673,7 +675,7 @@ ALTER TABLE `centro_costo`
 -- Filtros para la tabla `detalle_producto`
 --
 ALTER TABLE `detalle_producto`
-  ADD CONSTRAINT `fk_Detalle_Producto_Producto1` FOREIGN KEY (`codigo_producto`) REFERENCES `producto` (`codigo_producto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Detalle_Producto_Producto1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Detalle_Producto_Proveedor1` FOREIGN KEY (`rut_proveedor`) REFERENCES `proveedor` (`rut_proveedor`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
