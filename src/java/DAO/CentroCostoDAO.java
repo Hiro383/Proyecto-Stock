@@ -255,7 +255,7 @@ public class CentroCostoDAO implements CRUDCentroCosto{
                     }
                     
                 }
-                if(id != -1 && nombre != 1)
+                if(id != -1 && nombre != -1)
                 {
                     buscando = false;
                 }
