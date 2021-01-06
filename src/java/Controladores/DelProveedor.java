@@ -63,9 +63,9 @@ public class DelProveedor extends HttpServlet {
          ProveedorDAO objDAO = new ProveedorDAO();
         Proveedor objProveedor = new Proveedor();
         
-        String rut_proveedor = request.getParameter("rut_proveedor");
+        int id_proveedor = Integer.parseInt(request.getParameter("id_proveedor"));
         
-        objProveedor.setRut_proveedor(rut_proveedor);
+        objProveedor.setId_proveedor(id_proveedor);
         objDAO.eliminarProveedor(objProveedor);
         response.sendRedirect("ListaProveedor.jsp");
     }

@@ -131,7 +131,7 @@
                                                 </td>
                                                 <td>
                                                     <a href="ModProveedor?rut_proveedor=<%= objProveedor.getRut_proveedor()%>" class="btn btn-datatable btn-icon btn-transparent-dark" role="button" aria-pressed="true"><i data-icon="Y"></i></a>
-                                                    <a href="DelProveedor?rut_proveedor=<%= objProveedor.getRut_proveedor() %>" class="btn btn-datatable btn-icon btn-transparent-dark" role="button" aria-pressed="true"><i data-feather="trash-2"></i></a>
+                                                    <a href="DelProveedor?id_proveedor=<%= objProveedor.getId_proveedor() %>" class="btn btn-datatable btn-icon btn-transparent-dark" role="button" aria-pressed="true"><i data-feather="trash-2"></i></a>
                                                 </td>
                                             </tr>
                                              <% } %>
