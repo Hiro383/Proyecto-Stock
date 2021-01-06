@@ -27,7 +27,7 @@
 
         Producto objPro = (Producto) objsesion.getAttribute("objPro");
         String id_producto = (String) objsesion.getAttribute("id_producto");
-        objPro.setId_producto(id_producto);
+        objPro.setId_producto(Integer.parseInt(id_producto));
 
 
     %>
@@ -52,7 +52,7 @@
                                                         <div class="form-group">
                                                             <label class="small mb-1" for="inputFirstName"><i data-feather="user-x"></i> Codigo Producto</label>
                                                             <div class="form-group"id="fg_id_producto">
-                                                                <input class="form-control py-4" id="txtId_producto" name="txtId_producto" type="text" placeholder="000" readonly=""  value="<%=objPro.getId_producto()%>"/>
+                                                                <input class="form-control py-4" id="txtId_producto" name="txtId_producto" type="number" placeholder="000" value="<%=objPro.getId_producto()%>"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -71,38 +71,21 @@
                                                             <textarea class="form-control" id="txtDescripcion_producto" name="txtDescripcion_producto" rows="4" cols="50"  maxlength="500"><%=objPro.getDescripcion_producto()%></textarea>
 
                                                         </div>
-
                                                     </div>
-                                                </div>                                               
+                                                </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="small mb-1" for="inputLastName"><i data-feather="smartphone"></i> Cantidad</label>
-                                                        <div class="form-group"id="fg_cantidad_producto">
-                                                            <input class="form-control py-4" id="txtCantidad_producto" name="txtCantidad_producto" type="tel" placeholder="0" value="<%=objPro.getCantidad_producto()%>"/>
+                                                        <label class="small mb-1" for="inputFirstName"><i data-feather="user-x"></i> Estado Producto</label>
+                                                        <div class="form-group"id="fg_nombre_producto">
+                                                            <input class="form-control py-4" id="txtNombre_producto" name="txtEstado_producto" type="text" placeholder="000" value="<%=objPro.getEstado_producto()%>" />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="small mb-1" for="inputLastName"><i data-feather="smartphone"></i> Valor Neto</label>
+                                                        <label class="small mb-1" for="inputLastName"><i data-feather="smartphone"></i> Valor producto</label>
                                                         <div class="form-group"id="fg_valorNeto_producto">
-                                                            <input class="form-control py-4" id="txtValorNeto_producto" name="txtValorNeto_producto" type="tel" placeholder=" 00000" value="<%=objPro.getValorNeto_producto()%>"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="small mb-1" for="inputLastName"><i data-feather="smartphone"></i> Valor Iva</label>
-                                                        <div class="form-group"id="fg_valorIva_producto">
-                                                            <input class="form-control py-4" id="txtValorIva_producto" name="txtValorIva_producto" type="tel" placeholder=" 00000" value="<%=objPro.getValorIva_producto()%>" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="small mb-1" for="inputLastName"><i data-feather="smartphone"></i> Valor Total</label>
-                                                        <div class="form-group"id="fg_valorTotal_producto">
-                                                            <input class="form-control py-4" id="txtValorTotal_producto" name="txtValorTotal_producto" type="text" placeholder="0000" value="<%=objPro.getValorTotal_producto()%>" />
+                                                            <input class="form-control py-4" id="txtValorNeto_producto" name="txtValor_producto" type="tel" placeholder=" 00000" value="<%=objPro.getValor_producto()%>"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -126,58 +109,28 @@
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="inputLastName"><i data-feather="smartphone"></i> Stock minimo</label>
                                                         <div class="form-group"id="fg_stock_minimo_producto">
-                                                            <input class="form-control py-4" id="txtStock_minimo_producto" name="txtStock_minimo_producto" type="text" placeholder="1-2-3..." value="<%=objPro.getStock_minimo_producto()%>" />
+                                                            <input class="form-control py-4" id="txtStock_minimo_producto" name="txtStock_minimo_producto" type="text" placeholder="1-2-3..." value="<%=objPro.getStock_minimo()%>" />
                                                         </div>
-
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="small mb-1" for="inputLastName"><i data-feather="smartphone"></i> Codigo Activo Producto</label>
-                                                        <input class="form-control py-4" id="txtCodigo_activo_producto" name="txtCodigo_activo_producto" type="text" placeholder="000000" value="<%=objPro.getCodigo_activo_producto()%>"/>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="small mb-1" for="inputLastName"><i data-feather="smartphone"></i>Numero Orden Compra</label>
-                                                        <input class="form-control py-4" id="txtNumero_orden_compra" name="txtNumero_orden_compra" type="number" placeholder="000000" value="<%=objPro.getNumero_orden_compra()%>"/>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group"><label class="small mb-1" for="inputLastName"><i data-feather="smartphone"></i> Fecha Ingreso Producto</label><input class="form-control py-4" id="dtpFechaIngreso" name="dtpFechaIngreso" type="date" value="<%=objPro.getFecha_ingreso_producto()%>"/></div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group"><label class="small mb-1" for="inputLastName"><i data-feather="smartphone"></i> Fecha Salida Producto</label><input class="form-control py-4" id="dtpFechaSalida" name="dtpFechaSalida" type="date" value="<%=objPro.getFecha_salida_producto()%>"/></div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group"><label class="small mb-1" for="inputLastName"><i data-feather="smartphone"></i> Fecha Capital Producto</label><input class="form-control py-4" id="dtpFechaCapital" name="dtpFechaCapital" type="date" value="<%=objPro.getFecha_capital_producto()%>"/></div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group"><label class="small mb-1" for="inputLastName"><i data-feather="smartphone"></i> Fecha Vencimiento Producto</label><input class="form-control py-4" id="dtpFechaVencimiento" name="dtpFechaVencimiento" type="date" value="<%=objPro.getFecha_vencimiento_producto()%>"/></div>
-                                                </div>
-
-
                                                 <div class="col-md-6">												
                                                     <div class="form-group">
-                                                        <label for="exampleSelect1" >Codigo Bodega</label>
-                                                        <select class="form-control" id="txtCodigo_bodega" name="txtCodigo_bodega">
+                                                        <label for="exampleSelect1" >Proveedor</label>
+                                                        <select class="form-control" id="txtId_proveedor" name="txtId_proveedor">
                                                             <%
                                                                 try {
                                                                     objCone.getConn();
-                                                                    String query = "SELECT CODIGO_BODEGA, UBICACION_BODEGA FROM BODEGA";
+                                                                    String query = "SELECT id_proveedor, rut_proveedor, nombre_proveedor FROM proveedor";
                                                                     PreparedStatement psI;
                                                                     ResultSet rs;
                                                                     psI = objCone.getConn().prepareStatement(query);
                                                                     rs = psI.executeQuery();
                                                                     while (rs.next()) {
-                                                                        if (rs.getString(1).equalsIgnoreCase(objPro.getCodigo_bodega())) {
-                                                                            out.println("<option value = " + rs.getString(1) + " selected>" + rs.getString(2) + "</option>");
+                                                                        if (rs.getInt(1) == objPro.getId_proveedor()) {
+                                                                            out.println("<option value = " + rs.getInt(1) + " selected>" + rs.getString(2) +" "+rs.getString(3)+"</option>");
                                                                         } else {
-                                                                            out.println("<option value = " + rs.getString(1) + ">" + rs.getString(2) + "</option>");
+                                                                            out.println("<option value = " + rs.getInt(1) + ">" + rs.getString(2) +" "+rs.getString(3)+ "</option>");
                                                                         }
-
                                                                     }
                                                                 } catch (Exception e) {
                                                                 }
@@ -185,7 +138,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">												
+                                                <div class="col-md-12">												
                                                     <div class="form-group">
                                                         <label for="exampleSelect1" >Tipo Producto</label>
                                                         <select class="form-control" id="txtId_tipo_producto" name="txtId_tipo_producto">
@@ -212,7 +165,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-row"> 
-                                                <div class="col-md-6">												
+                                                <div class="col-md-12">												
                                                     <div class="form-group">
                                                         <label for="exampleSelect1" >Tipo Unidad</label>
                                                         <select class="form-control" id="txtId_tipo_unidad" name="txtId_tipo_unidad">

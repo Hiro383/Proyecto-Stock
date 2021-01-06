@@ -67,7 +67,7 @@ public class DelProducto extends HttpServlet {
 
         String id_producto = request.getParameter("id_producto");
 
-        objProducto.setId_producto(id_producto);
+        objProducto.setId_producto(Integer.parseInt(id_producto));
         objProductoDAO.eliminarProducto(objProducto);
         response.sendRedirect("ListaProducto.jsp");
     }

@@ -87,20 +87,11 @@ public class BuscarProducto extends HttpServlet {
                 u.getNombre_producto();
                 u.getDescripcion_producto();
                 u.getEstado_producto();
-                u.getCantidad_producto();
-                u.getValorNeto_producto();
-                u.getValorIva_producto();
-                u.getValorTotal_producto();
+                u.getValor_producto();
                 u.getMarca_producto();
                 u.getSerial_producto();
-                u.getStock_minimo_producto();
-                u.getFecha_ingreso_producto();
-                u.getFecha_salida_producto();
-                u.getFecha_capital_producto();
-                u.getFecha_vencimiento_producto();
-                u.getCodigo_activo_producto();
-                u.getNumero_orden_compra();
-                u.getCodigo_bodega();
+                u.getStock_minimo();
+                u.getId_proveedor();
                 u.getId_tipo_producto();
                 u.getId_tipo_unidad();
                 

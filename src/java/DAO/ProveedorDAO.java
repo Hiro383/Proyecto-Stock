@@ -25,9 +25,9 @@ public class ProveedorDAO implements CRUDProveedor{
 
     private static String sql_selectAll = "select * from proveedor";
     private static String sql_selectProveedor = "select * from proveedor where rut_proveedor = ?";
-    private static String sql_insert = "insert into proveedor (rut_proveedor, nombre_proveedor, razonSocial_proveedor, correo_proveedor, direccion_proveedor, fono_proveedor) VALUES(?,?,?,?,?,?)";
-    private static String sql_delete = "delete from proveedor WHERE rut_proveedor = ?";
-    private static String sql_update = "update proveedor set nombre_proveedor = ?,razonSocial_proveedor = ?,correo_proveedor = ? ,direccion_proveedor = ?,fono_proveedor = ? WHERE rut_proveedor = ?";
+    private static String sql_insert = "insert into proveedor (id_proveedor, rut_proveedor, nombre_proveedor, razonSocial_proveedor, correo_proveedor, direccion_proveedor, fono_proveedor, estado_proveedor, id_comuna) VALUES(?,?,?,?,?,?,?,?,?)";
+    private static String sql_delete = "delete from proveedor WHERE id_proveedor = ?";
+    private static String sql_update = "update proveedor set rut_proveedor = ?, nombre_proveedor = ?,razonSocial_proveedor = ?,correo_proveedor = ? ,direccion_proveedor = ?,fono_proveedor = ?, estado_proveedor = ?, id_comuna = ? WHERE id_proveedor = ?";
     
     private static ConexionDB objConn = ConexionDB.InstanciaConn();
     private ResultSet rs;  
@@ -37,12 +37,15 @@ public class ProveedorDAO implements CRUDProveedor{
     PreparedStatement psI;
         try {
             psI = objConn.getConn().prepareStatement(sql_insert);
-            psI.setString(1, objProveedor.getRut_proveedor());
-            psI.setString(2, objProveedor.getNombre_proveedor());
-            psI.setString(3, objProveedor.getRazon_social_proveedor());
-            psI.setString(4, objProveedor.getCorreo_proveedor());
-            psI.setString(5, objProveedor.getDireccion_proveedor());
-            psI.setString(6, objProveedor.getFono_proveedor());
+            psI.setInt(1, objProveedor.getId_proveedor());
+            psI.setString(2, objProveedor.getRut_proveedor());
+            psI.setString(3, objProveedor.getNombre_proveedor());
+            psI.setString(4, objProveedor.getRazon_social_proveedor());
+            psI.setString(5, objProveedor.getCorreo_proveedor());
+            psI.setString(6, objProveedor.getDireccion_proveedor());
+            psI.setString(7, objProveedor.getFono_proveedor());
+            psI.setString(8, objProveedor.getEstado_proveedor());
+            psI.setInt(9, objProveedor.getId_comuna());
             
             if (psI.executeUpdate()>0) {
                 return true;
@@ -59,13 +62,16 @@ public class ProveedorDAO implements CRUDProveedor{
     public boolean editarProveedor(Proveedor objProveedor) {
         PreparedStatement psU;
         try {
-            psU = objConn.getConn().prepareStatement(sql_update);            
-            psU.setString(1, objProveedor.getNombre_proveedor());
-            psU.setString(2, objProveedor.getRazon_social_proveedor());
-            psU.setString(3, objProveedor.getCorreo_proveedor());
-            psU.setString(4, objProveedor.getDireccion_proveedor());
-            psU.setString(5, objProveedor.getFono_proveedor());
-            psU.setString(6, objProveedor.getRut_proveedor());
+            psU = objConn.getConn().prepareStatement(sql_update);
+            psU.setString(1, objProveedor.getRut_proveedor());
+            psU.setString(2, objProveedor.getNombre_proveedor());
+            psU.setString(3, objProveedor.getRazon_social_proveedor());
+            psU.setString(4, objProveedor.getCorreo_proveedor());
+            psU.setString(5, objProveedor.getDireccion_proveedor());
+            psU.setString(6, objProveedor.getFono_proveedor());
+            psU.setString(7, objProveedor.getEstado_proveedor());
+            psU.setInt(8, objProveedor.getId_comuna());
+            psU.setInt(9, objProveedor.getId_proveedor());
             
             if (psU.executeUpdate()>0) {
                 return true;
@@ -83,7 +89,7 @@ public class ProveedorDAO implements CRUDProveedor{
        PreparedStatement psD;
         try {
             psD = objConn.getConn().prepareStatement(sql_delete);
-            psD.setString(1, objProveedor.getRut_proveedor());
+            psD.setInt(1, objProveedor.getId_proveedor());
                         
             if (psD.executeUpdate()>0) {
                 return null;
@@ -104,14 +110,18 @@ public class ProveedorDAO implements CRUDProveedor{
              psL = objConn.getConn().prepareStatement(sql_selectAll );
             rs = psL.executeQuery();            
             while (rs.next()) {
-                Proveedor objProveedor = new Proveedor();                               
-           
-           objProveedor.setRut_proveedor(rs.getString("rut_proveedor"));
-           objProveedor.setNombre_proveedor(rs.getString("nombre_proveedor"));
-           objProveedor.setRazon_social_proveedor(rs.getString("razonSocial_proveedor"));
-           objProveedor.setCorreo_proveedor(rs.getString("correo_proveedor"));
-           objProveedor.setDireccion_proveedor(rs.getString("direccion_proveedor"));
-           objProveedor.setFono_proveedor(rs.getString("fono_proveedor"));
+                Proveedor objProveedor = new Proveedor();         
+                
+                objProveedor.setId_proveedor(rs.getInt("id_proveedor"));
+                objProveedor.setRut_proveedor(rs.getString("rut_proveedor"));
+                objProveedor.setNombre_proveedor(rs.getString("nombre_proveedor"));
+                objProveedor.setRazon_social_proveedor(rs.getString("razonSocial_proveedor"));
+                objProveedor.setCorreo_proveedor(rs.getString("correo_proveedor"));
+                objProveedor.setDireccion_proveedor(rs.getString("direccion_proveedor"));
+                objProveedor.setFono_proveedor(rs.getString("fono_proveedor"));
+                objProveedor.setEstado_proveedor(rs.getString("estado_proveedor"));
+                objProveedor.setId_comuna(rs.getInt("id_comuna"));
+                
                 lstProveedor.add(objProveedor);
             }
         } catch (SQLException ex) {
@@ -123,15 +133,15 @@ public class ProveedorDAO implements CRUDProveedor{
     @Override
     public List buscar(String texto) {
         List<Proveedor> lista = new ArrayList<>();
-       int texto2 = 0;
+        int texto2 = 0;
         if(texto.equalsIgnoreCase("Administrador")){
             texto2 = 1;
         }else if(texto.equalsIgnoreCase("Operador")){
             texto2 = 2;
         }
-        String sql_search = "SELECT * FROM `proveedor` WHERE rut_proveedor like '%"+texto+"%' or nombre_proveedor like '%"+texto+"%' or "
+        String sql_search = "SELECT * FROM `proveedor` WHERE id_proveedor like '%"+texto+"%' or rut_proveedor like '%"+texto+"%' or nombre_proveedor like '%"+texto+"%' or "
                 + "razonSocial_proveedor like '%"+texto+"%' or correo_proveedor like '%"+texto+"%' or direccion_proveedor like '%"+texto+"%' or "
-                + "fono_proveedor like '%"+texto+"%'";
+                + "fono_proveedor like '%"+texto+"%' or estado_proveedor like '%"+texto+"%' or id_comuna like '%"+texto+"%'";
         
         try {
             
@@ -140,12 +150,15 @@ public class ProveedorDAO implements CRUDProveedor{
             rs = psB.executeQuery();
             while(rs.next()){
                 Proveedor p = new Proveedor();
-                 p.setRut_proveedor(rs.getString("rut_proveedor"));
+                p.setId_proveedor(rs.getInt("id_proveedor"));
+                p.setRut_proveedor(rs.getString("rut_proveedor"));
                 p.setNombre_proveedor(rs.getString("nombre_proveedor"));
                 p.setRazon_social_proveedor(rs.getString("razonSocial_proveedor"));
                 p.setCorreo_proveedor(rs.getString("correo_proveedor"));
                 p.setDireccion_proveedor(rs.getString("direccion_proveedor"));
                 p.setFono_proveedor(rs.getString("fono_proveedor"));
+                p.setEstado_proveedor(rs.getString("estado_proveedor"));
+                p.setId_comuna(rs.getInt("id_comuna"));
                 lista.add(p);
             }
             
@@ -162,13 +175,16 @@ public class ProveedorDAO implements CRUDProveedor{
             psG.setString(1, objProveedor.getRut_proveedor());
             rs = psG.executeQuery();
             
-            while (rs.next()) {                
+            while (rs.next()) {              
+                p.setId_proveedor(rs.getInt("id_proveedor"));
                 p.setRut_proveedor(rs.getString("rut_proveedor"));
                 p.setNombre_proveedor(rs.getString("nombre_proveedor"));
                 p.setRazon_social_proveedor(rs.getString("razonSocial_proveedor"));
                 p.setCorreo_proveedor(rs.getString("correo_proveedor"));
                 p.setDireccion_proveedor(rs.getString("direccion_proveedor"));
                 p.setFono_proveedor(rs.getString("fono_proveedor"));
+                p.setEstado_proveedor(rs.getString("estado_proveedor"));
+                p.setId_comuna(rs.getInt("id_comuna"));
             }
             return p;
         } catch (SQLException ex) {

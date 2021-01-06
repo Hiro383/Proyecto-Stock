@@ -1,3 +1,6 @@
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="Conexion.ConexionDB"%>
+<%@page import="java.sql.ResultSet"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,6 +18,9 @@
         <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
     </head>
+    <%
+        ConexionDB objCone = new ConexionDB();
+    %>
     <body class="nav-fixed">
         <jsp:include page="Header.jsp"></jsp:include>
             <div id="layoutSidenav">
@@ -32,7 +38,14 @@
                                         <div class="card-body">
                                             <form action="AddProveedor" id="frmAgregarProveedor" name="frmAgregarProveedor" method="post" autocomplete="off" accept-charset="ISO-8859-1">
                                                 <div class="form-row">
-
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="small mb-1" for="inputFirstName"><i data-feather="user-x"></i> Id proveedor</label>
+                                                            <div class="form-group"id="fg_id_proveedor">
+                                                                <input class="form-control py-4" id="txtId_proveedor" name="txtId_proveedor" type="number" maxlength="10" placeholder="0" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label class="small mb-1" for="inputFirstName"><i data-feather="user-x"></i> Rut</label>
@@ -85,7 +98,35 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="small mb-1" for="inputFirstName"><i data-feather="user-x"></i> Estado</label>
+                                                            <div class="form-group" id="fg_estado">
+                                                                <input class="form-control py-4" id="txtEstado_Proveedor"  name="txtEstado_Proveedor"  type="text" maxlength="1"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">												
+                                                    <div class="form-group">
+                                                        <label for="exampleSelect1"><i data-feather="check-square"></i>Comuna</label>
+                                                        <select class="form-control" id="txtId_comuna" name="txtId_comuna">
+                                                            <%
+                                                                try {
+                                                                    objCone.getConn();
+                                                                    String query = "SELECT id_comuna, nombre_comuna FROM comuna";
+                                                                    PreparedStatement psI;
+                                                                    ResultSet rs;
+                                                                    psI = objCone.getConn().prepareStatement(query);
+                                                                    rs = psI.executeQuery();
+                                                                    while (rs.next()) {
+                                                                        out.println("<option value = " + rs.getInt(1) + ">" + rs.getString(2) + "</option>");
+                                                                    }
+                                                                } catch (Exception e) {
+                                                                }
+                                                            %>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                                 </div>
                                                 
                                                 <div class="form-group mt-4 mb-0">

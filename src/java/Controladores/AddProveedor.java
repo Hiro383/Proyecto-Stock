@@ -77,12 +77,15 @@ public class AddProveedor extends HttpServlet {
         ProveedorDAO objDAO = new ProveedorDAO();
         Proveedor objProveedor = new Proveedor();
         
+        objProveedor.setId_proveedor(Integer.parseInt(request.getParameter("txtId_proveedor")));
         objProveedor.setRut_proveedor(request.getParameter("txtRut_Proveedor"));
         objProveedor.setNombre_proveedor(request.getParameter("txtNombre_Proveedor"));
         objProveedor.setRazon_social_proveedor(request.getParameter("txtRazonSocial_Proveedor"));
         objProveedor.setCorreo_proveedor((request.getParameter("txtCorreo_Proveedor")));
         objProveedor.setDireccion_proveedor((request.getParameter("txtDireccion_Proveedor")));
-        objProveedor.setFono_proveedor((request.getParameter("txtFono_Proveedor")));
+        objProveedor.setFono_proveedor(request.getParameter("txtFono_Proveedor"));
+        objProveedor.setEstado_proveedor(request.getParameter("txtEstado_Proveedor"));
+        objProveedor.setId_comuna(Integer.parseInt(request.getParameter("txtId_comuna")));
         
         if(objDAO.agregarProveedor(objProveedor)){
                 response.sendRedirect("ListaProveedor.jsp");

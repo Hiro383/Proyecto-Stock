@@ -1,5 +1,6 @@
-
-
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="Conexion.ConexionDB"%>
+<%@page import="java.sql.ResultSet"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="Modelos.Proveedor"%>
 <%@page import="java.util.ArrayList"%>
@@ -26,6 +27,9 @@
         <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
     </head>
+    <%
+        ConexionDB objCone = new ConexionDB();
+    %>
     <body class="nav-fixed">
         <jsp:include page="Header.jsp"></jsp:include>
         <div id="layoutSidenav">
@@ -67,7 +71,9 @@
                                                 <th>Correo</th>
                                                 <th>Direccion</th>
                                                 <th>Fono</th>
-						<th colspan="2">Acciones</th>
+                                                <th>Estado</th>
+                                                <th>Comuna</th>
+                                                <th colspan="2">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tfoot>                                          
@@ -78,27 +84,47 @@
                                                 <th>Correo</th>
                                                 <th>Direccion</th>
                                                 <th>Fono</th>
+                                                <th>Estado</th>
+                                                <th>Comuna</th>
 						<th>Acciones</th>
                                             </tr>
                                         </tfoot>
-                                          <%
-                ProveedorDAO objDAOProveedor = new ProveedorDAO();
-                ArrayList<Proveedor> lstProveedor = objDAOProveedor.listarProveedor();
-                Iterator<Proveedor> iter = lstProveedor.iterator();
-                Proveedor objProveedor = null;
+                                        <%
+                                            ProveedorDAO objDAOProveedor = new ProveedorDAO();
+                                            ArrayList<Proveedor> lstProveedor = objDAOProveedor.listarProveedor();
+                                            Iterator<Proveedor> iter = lstProveedor.iterator();
+                                            Proveedor objProveedor = null;
                 
-                while (iter.hasNext()) {                        
-                        objProveedor = iter.next();
-                    
-            %>
+                                            while (iter.hasNext()) {                        
+                                            objProveedor = iter.next();
+                                        %>
                                         <tbody>
                                             <tr>
                                                 <td><%= objProveedor.getRut_proveedor() %></td>
                                                 <td><%= objProveedor.getNombre_proveedor() %></td>
                                                 <td><%= objProveedor.getRazon_social_proveedor() %></td>
-                                                <td><%=objProveedor.getCorreo_proveedor() %></td>
+                                                <td><%= objProveedor.getCorreo_proveedor() %></td>
                                                 <td><%= objProveedor.getDireccion_proveedor() %></td>
                                                 <td><%= objProveedor.getFono_proveedor() %></td>
+                                                <td><%= objProveedor.getEstado_proveedor() %></td>
+                                                <td>
+                                                    <%
+                                                        try 
+                                                        {
+                                                            objCone.getConn();
+                                                            String query = "SELECT nombre_comuna FROM comuna where id_comuna = "+objProveedor.getId_comuna();
+                                                            PreparedStatement psI;
+                                                            ResultSet rs;
+                                                            psI = objCone.getConn().prepareStatement(query);
+                                                            rs = psI.executeQuery();
+                                                            while (rs.next()) {
+                                                                out.println(rs.getString(1));
+                                                            }
+                                                        } 
+                                                        catch(Exception e) {
+                                                        }
+                                                            %>
+                                                </td>
                                                 <td>
                                                     <a href="ModProveedor?rut_proveedor=<%= objProveedor.getRut_proveedor()%>" class="btn btn-datatable btn-icon btn-transparent-dark" role="button" aria-pressed="true"><i data-icon="Y"></i></a>
                                                     <a href="DelProveedor?rut_proveedor=<%= objProveedor.getRut_proveedor() %>" class="btn btn-datatable btn-icon btn-transparent-dark" role="button" aria-pressed="true"><i data-feather="trash-2"></i></a>

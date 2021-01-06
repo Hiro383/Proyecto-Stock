@@ -65,7 +65,7 @@ public class ModProducto extends HttpServlet {
             Producto objProMod = new Producto();
             
             String id_producto = request.getParameter("id_producto");
-            objPro.setId_producto(id_producto);
+            objPro.setId_producto(Integer.parseInt(id_producto));
         
             objProMod = objProductoDAO.buscarPorId(objPro);
         

@@ -48,7 +48,7 @@
                                                         <div class="form-group">
                                                             <label class="small mb-1" for="inputFirstName"><i data-feather="user-x"></i> Codigo Producto</label>
                                                             <div class="form-group"id="fg_id_producto">
-                                                                <input class="form-control py-4" id="txtId_producto" name="txtId_producto" type="text" maxlength="10" placeholder="000" />
+                                                                <input class="form-control py-4" id="txtId_producto" name="txtId_producto" type="number" maxlength="10" placeholder="0" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -69,21 +69,19 @@
 
                                                         </div>
                                                     </div>
-
-
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="small mb-1" for="inputLastName"><i data-feather="plus"></i> Cantidad</label>
-                                                            <div class="form-group"id="fg_cantidad_producto">
-                                                                <input class="form-control py-4" id="txtCantidad_producto" name="txtCantidad_producto" type="number" min="0" placeholder="0" />
+                                                            <label class="small mb-1" for="inputLastName"><i data-feather="file-text"></i> Estado Producto</label>
+                                                            <div class="form-group"id="fg_valorNeto_producto">
+                                                                <input class="form-control py-4" id="txtValor_producto" name="txtEstado_producto" type="text" maxlength="20" placeholder="Estado" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="small mb-1" for="inputLastName"><i data-feather="dollar-sign"></i> Valor Neto</label>
+                                                            <label class="small mb-1" for="inputLastName"><i data-feather="dollar-sign"></i> Valor Producto</label>
                                                             <div class="form-group"id="fg_valorNeto_producto">
-                                                                <input class="form-control py-4" id="txtValorNeto_producto" name="txtValorNeto_producto" type="number" min="0" placeholder=" 00000" />
+                                                                <input class="form-control py-4" id="txtValor_producto" name="txtValor_producto" type="number" min="0" placeholder=" 00000" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -112,47 +110,29 @@
 
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="small mb-1" for="inputLastName"><i data-feather="info"></i> Codigo Activo Producto</label>
-                                                            <input class="form-control py-4" id="txtCodigo_activo_producto" name="txtCodigo_activo_producto" type="text" maxlength="11" placeholder="000000"/>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group"><label class="small mb-1" for="inputLastName"><i data-feather="calendar"></i> Fecha Ingreso Producto</label><input class="form-control py-4" id="dtpFechaIngreso" name="dtpFechaIngreso" type="date"  /></div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group"><label class="small mb-1" for="inputLastName"><i data-feather="calendar"></i> Fecha Salida Producto</label><input class="form-control py-4" id="dtpFechaSalida" name="dtpFechaSalida" type="date"  /></div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group"><label class="small mb-1" for="inputLastName"><i data-feather="calendar"></i> Fecha Capital Producto</label><input class="form-control py-4" id="dtpFechaCapital" name="dtpFechaCapital" type="date"  /></div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group"><label class="small mb-1" for="inputLastName"><i data-feather="calendar"></i> Fecha Vencimiento Producto</label><input class="form-control py-4" id="dtpFechaVencimiento" name="dtpFechaVencimiento" type="date"  /></div>
-                                                    </div>
 
                                                     <div class="col-md-6">												
                                                         <div class="form-group">
-                                                            <label for="exampleSelect1"><i data-feather="check-square"></i> Codigo Bodega</label>
-                                                            <select class="form-control" id="txtCodigo_bodega" name="txtCodigo_bodega">
+                                                            <label for="exampleSelect1"><i data-feather="check-square"></i> Id Proveedor</label>
+                                                            <select class="form-control" id="txtCodigo_bodega" name="txtId_proveedor">
                                                             <%                                                            try {
                                                                     objCone.getConn();
-                                                                    String query = "SELECT CODIGO_BODEGA, UBICACION_BODEGA FROM BODEGA";
+                                                                    String query = "SELECT id_proveedor, rut_proveedor, nombre_proveedor FROM proveedor";
                                                                     PreparedStatement psI;
                                                                     ResultSet rs;
                                                                     psI = objCone.getConn().prepareStatement(query);
                                                                     rs = psI.executeQuery();
                                                                     while (rs.next()) {
-                                                                        out.println("<option value = " + rs.getString(1) + ">" + rs.getString(1) + " " + rs.getString(2) + "</option>");
+                                                                        out.println("<option value = " + rs.getInt(1) + ">" + rs.getString(2) + " " + rs.getString(3) + "</option>");
                                                                     }
                                                                 } catch (Exception e) {
                                                                 }
                                                             %>
                                                         </select>
                                                     </div>
-                                                </div>
+                                                </div>      
+                                            </div>
+                                            <div class="form-row"> 
                                                 <div class="col-md-6">												
                                                     <div class="form-group">
                                                         <label for="exampleSelect1"><i data-feather="check-square"></i> Tipo Producto</label>
@@ -174,9 +154,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-row"> 
-                                                <div class="col-md-6">												
+                                                <div class="col-md-6">									
                                                     <div class="form-group">
                                                         <label for="exampleSelect1"><i data-feather="check-square"></i> Tipo Unidad</label>
                                                         <select class="form-control" id="txtId_tipo_unidad" name="txtId_tipo_unidad">
@@ -196,12 +174,6 @@
                                                             %>
                                                         </select>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="small mb-1" for="inputLastName"><i data-feather="info"></i>Numero Orden Compra</label>
-                                                    <input class="form-control py-4" id="txtNumero_orden_compra" name="txtNumero_orden_compra" type="number" maxlength="11" placeholder="000000"/>
                                                 </div>
                                             </div>
                                             <div class="form-group mt-4 mb-0">

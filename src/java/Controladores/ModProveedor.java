@@ -65,7 +65,7 @@ public class ModProveedor extends HttpServlet {
         ProveedorDAO objDAO = new ProveedorDAO();
         Proveedor objProveedor = new Proveedor();
         
-       String rut_proveedor = request.getParameter("rut_proveedor");
+        String rut_proveedor = request.getParameter("rut_proveedor");
         
         objProveedor.setRut_proveedor(rut_proveedor);
         

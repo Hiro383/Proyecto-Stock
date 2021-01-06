@@ -1,9 +1,5 @@
-
-
 <%@page import="java.util.List"%>
 <%@page import="java.text.DecimalFormat"%>
-<%@page import="Modelos.Bodega"%>
-<%@page import="DAO.BodegaDAO"%>
 <%@page import="Modelos.TipoProducto"%>
 <%@page import="Modelos.TipoUnidad"%>
 <%@page import="DAO.TipoProductoDAO"%>
@@ -22,6 +18,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Tabla Sedes</title>
+        <link href="css/estilos.css" rel="stylesheet" type="text/css"/>
         <link href="css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <link rel="icon" type="image/x-icon" href="assets/img/favicon.png" />
@@ -30,179 +27,144 @@
     </head>
     <%
         HttpSession objsesion = request.getSession();
-
-        String rol = (String) objsesion.getAttribute("rol");
-
-
+    
+        String rol = (String)objsesion.getAttribute("rol");
+        
+        
+        
     %>
-
+    
     <body class="nav-fixed">
         <jsp:include page="Header.jsp"></jsp:include> 
-            <div id="layoutSidenav">
-                <div id="layoutSidenav_nav">
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
                 <jsp:include page="Menu.jsp"></jsp:include>
-                </div>
-                <div id="layoutSidenav_content">
-                    <main>
-                        <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
-                            <div class="container-fluid">
-                                <div class="page-header-content">
-                                    <h1 class="page-header-title">
-                                        <div class="page-header-icon"><i data-feather="filter"></i></div>
-                                        <span>Lista Producto</span>
-                                    </h1>
-                                    <div class="page-header-subtitle">Productos Ingresados en el Sistema.</div>
-                                </div>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="page-header pb-10 page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="page-header-content">
+                                <h1 class="page-header-title">
+                                    <div class="page-header-icon"><i data-feather="filter"></i></div>
+                                    <span>Lista Producto</span>
+                                </h1>
+                                <div class="page-header-subtitle">Productos Ingresados en el Sistema.</div>
                             </div>
                         </div>
-                        <div class="container-fluid mt-n10">
-                            <div class="card mb-4">
-                                <div class="card-header">Table Extendida</div>
-                                <div class="card-body">
-                                    <form class="form-inline" action="BuscarProducto" method="post" autocomplete="off">
-                                        <div id="dataTable_filter" class="dataTables_filter">
-                                            <label>Buscar&nbsp;
-                                                <input type="search" name="txtBuscar" id="txtBuscar"  class="form-control form-control-sm" placeholder="" aria-controls="dataTable">
-                                                &nbsp;<button class="btn btn-primary btn-sm"  type="submit" name="btnBuscar"  id="btnBuscar"> <i data-feather="search"></i>Buscar</button>
-                                                <a class="btn btn-primary btn-sm" style="margin-left: 5px;" type="button" href="ListaProducto.jsp" name="btnBuscar" id="btnBuscar">Volver</a>
-                                            </label>
-                                        </div>
-                                    </form>
-                                    <div class="datatable table-responsive" style="overflow-x: auto;">
-                                        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Id Producto</th>
-                                                    <th>Nombre Producto</th>
-                                                    <th>Descripci?n Producto</th>
-                                                    <th>Estado Producto</th>
-                                                    <th>Valor Neto</th>
-                                                    <th>Valor IVA</th>
-                                                    <th>Cantidad Producto</th>
-                                                    <th>Valor Total</th>
-                                                    <th>Marca Producto</th>
-                                                    <th>Serial Producto</th>
-                                                    <th>Stock Minimo</th>
-                                                    <th>Fecha Ingreso</th>
-                                                    <th>Fecha Salida</th>
-                                                    <th>Fecha Capital</th>
-                                                    <th>Fecha Vencimiento</th>
-                                                    <th>Codigo Activo</th>
-                                                    <th>Numero Orden Compra</th>
-                                                    <th>Ubicaci?n Bodega</th>
-                                                    <th>Tipo Producto</th>
-                                                    <th>Tipo Unidad</th>
-                                                    <th colspan="2">Acciones</th>
-                                                </tr>
-                                            </thead>
-                                        <%                                            HttpSession sessionMostrar = request.getSession();
-                                            List<Producto> lista = new ArrayList<Producto>();
-                                            lista = (List<Producto>) sessionMostrar.getAttribute("lstBuscarProducto");
-
-                                            ProductoDAO objDAOProducto = new ProductoDAO();
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card mb-4">
+                            <div class="card-header">Table Extendida</div>
+                            <div class="card-body">
+                                <form class="form-inline" action="BuscarProducto" method="post" autocomplete="off">
+                                    <div id="dataTable_filter" class="dataTables_filter">
+                                        <label>Buscar&nbsp;
+                                            <input type="search" name="txtBuscar" id="txtBuscar"  class="form-control form-control-sm" placeholder="" aria-controls="dataTable">
+                                            &nbsp;<button class="btn btn-primary btn-sm"  type="submit" name="btnBuscar"  id="btnBuscar"> <i data-feather="search"></i>Buscar</button>
+                                        </label>
+                                    </div>
+                                </form>
+                                <div  class="datatable table-responsive" style="overflow-x: auto;">
+                                    <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                        <thead style="white-space: nowrap;">
+                                             <tr>
+                                                <th>Codigo Producto</th>
+                                                <th>Nombre Producto</th>
+                                                <th>Descripción Producto</th>
+                                                <th>Estado Producto</th>
+                                                <th>Valor</th>
+                                                <th>Marca Producto</th>
+                                                <th>Serial Producto</th>
+                                                <th>Stock Minimo</th>
+                                                <th>Proveedor</th>
+                                                <th>Tipo Producto</th>
+                                                <th>Tipo Unidad</th>
+						<th colspan="2">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <%
+                                            
+                                            HttpSession sessionMostrar = request.getSession();
+                                            List<Producto> lstProducto = new ArrayList<Producto>();
+                                            lstProducto = (List<Producto>) sessionMostrar.getAttribute("lstBuscarProducto");
+                                            
                                             //agrego los 2 tipos
                                             TipoUnidadDAO objDAOTipoUnidad = new TipoUnidadDAO();
                                             TipoProductoDAO objDAOTipoProducto = new TipoProductoDAO();
-                                            BodegaDAO objDAOBodega = new BodegaDAO();
-
+                                            
                                             //2 arrays list
                                             ArrayList<TipoUnidad> lstTipoUnidad = objDAOTipoUnidad.listarTipoUnidad();
                                             ArrayList<TipoProducto> lstTipoProducto = objDAOTipoProducto.listarTipoProducto();
-                                            ArrayList<Bodega> lstBodega = objDAOBodega.listaBodega();
-
+                                            
                                             //2 iterator y null
-                                            Iterator<Producto> iter = lista.iterator();
+                                            Iterator<Producto> iter = lstProducto.iterator();
                                             Producto objProducto = null;
-
+                                      
                                             Iterator<TipoUnidad> iter2 = lstTipoUnidad.iterator();
                                             TipoUnidad objTipoUnidad = null;
                                             TipoUnidad objTipoUnidadXID = new TipoUnidad();
-
+                                            
                                             Iterator<TipoProducto> iter3 = lstTipoProducto.iterator();
                                             TipoProducto objTipoProducto = null;
                                             TipoProducto objTipoProductoXID = new TipoProducto();
-
-                                            Iterator<Bodega> iterBodega = lstBodega.iterator();
-                                            Bodega objBodega = null;
-                                            Bodega objBodegaXID = new Bodega();
-
-                                            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy" /*Se puede agregar HH:mm:ss
+                                            
+                                       
+                                            
+                                             
+                                            SimpleDateFormat formatter=new SimpleDateFormat("dd-MM-yyyy" /*Se puede agregar HH:mm:ss
                                             para obtener horas, minutos y segundos*/);
                                             String fechaIngreso = "";
                                             String fechaSalida = "";
                                             String fechaCapital = "";
                                             String fechaVencimiento = "";
-
+                                            
                                             DecimalFormat formateador = new DecimalFormat("###,###,###");
-
-
+                                            
+                                            
                                         %>
-
-                                        <%                                            while (iterBodega.hasNext()) {
-                                                objBodega = iterBodega.next();
-                                        %>
-
+                                        
+                                        
                                         <%
-                                            while (iter3.hasNext()) {
+                                                
+                                            while(iter3.hasNext()){
                                                 objTipoProducto = iter3.next();
-
-                                        %>
-
-                                        <%                                                 while (iter2.hasNext()) {
+                                                
+                                            %>
+                                            
+                                             <%
+                                            while(iter2.hasNext()){
                                                 objTipoUnidad = iter2.next();
+                                                
 
-
-                                        %>
-
-                                        <%                                                while (iter.hasNext()) {
+                                            %>
+                                            
+                                            <%
+                                            while(iter.hasNext()){
                                                 objProducto = iter.next();
+                                                
                                                 int id_tipo_unidad = objProducto.getId_tipo_unidad();
                                                 objTipoUnidadXID.setId_tipo_unidad(id_tipo_unidad);
                                                 objTipoUnidadXID = objDAOTipoUnidad.buscarPorId(objTipoUnidadXID);
+                                                
                                                 int id_tipo_producto = objProducto.getId_tipo_producto();
                                                 objTipoProductoXID.setId_tipo_producto(id_tipo_producto);
                                                 objTipoProductoXID = objDAOTipoProducto.buscarPorId(objTipoProductoXID);
-                                                String codigo_bodega = objBodega.getCodigo_bodega();
-                                                objBodegaXID.setCodigo_bodega(codigo_bodega);
-                                                objBodegaXID = objDAOBodega.buscarPorId(objBodegaXID);
-
-
-                                        %>
-
-
-
-                                        <tbody>
+                                            %>
+                                            
+                                           
+                                            
+                                        <tbody style="white-space: normal;">
                                             <tr >
                                                 <td><%= objProducto.getId_producto()%></td>
                                                 <td><%= objProducto.getNombre_producto()%></td>
                                                 <td><%= objProducto.getDescripcion_producto()%></td>
-                                                <td><%
-                                                    if (objProducto.getEstado_producto().equalsIgnoreCase("Stock")) {
-                                                    %>
-                                                    <div class="badge badge-success badge-pill"><%=objProducto.getEstado_producto()%></div>
-                                                    <%} else if (objProducto.getEstado_producto().equalsIgnoreCase("Reponer Stock")) {
-                                                    %>
-                                                    <div class="badge badge-warning badge-pill"><%=objProducto.getEstado_producto()%></div>
-                                                    <%} else {
-                                                    %>
-                                                    <div class="badge badge-danger badge-pill"><%=objProducto.getEstado_producto()%></div>
-                                                    <%}
-                                                    %>
-                                                </td>
-                                                <td>$<%= formateador.format(objProducto.getValorNeto_producto())%></td>
-                                                <td>$<%= formateador.format(objProducto.getValorIva_producto())%></td>
-                                                <td><%= objProducto.getCantidad_producto()%></td>
-                                                <td>$<%= formateador.format(objProducto.getValorTotal_producto())%></td>
+                                                <td><%= objProducto.getEstado_producto()%></td>
+                                                <td><%= formateador.format(objProducto.getValor_producto())%></td>                                  
                                                 <td><%= objProducto.getMarca_producto()%></td>
                                                 <td><%= objProducto.getSerial_producto()%></td>
-                                                <td><%= objProducto.getStock_minimo_producto()%></td>
-                                                <td><%= fechaIngreso = formatter.format(objProducto.getFecha_ingreso_producto())%></td>
-                                                <td><%= fechaSalida = formatter.format(objProducto.getFecha_salida_producto())%></td>
-                                                <td><%= fechaCapital = formatter.format(objProducto.getFecha_capital_producto())%></td>
-                                                <td><%= fechaVencimiento = formatter.format(objProducto.getFecha_vencimiento_producto())%></td>
-                                                <td><%= objProducto.getCodigo_activo_producto()%></td>
-                                                <td><%= objProducto.getNumero_orden_compra()%></td>
-                                                <td><%= objBodegaXID.getUbicacion_bodega()%></td>
+                                                <td><%= objProducto.getStock_minimo()%></td>
+                                                <td><%= objProducto.getId_proveedor() %></td>
                                                 <td><%= objTipoProductoXID.getCategoria_tipo_producto()%></td>
                                                 <td><%= objTipoUnidadXID.getNombre_unidad()%></td>
                                                 <td>
@@ -210,13 +172,12 @@
                                                     <a href="DelProducto?id_producto=<%= objProducto.getId_producto()%>" class="btn btn-datatable btn-icon btn-transparent-dark" role="button" aria-pressed="true"><i data-feather="trash-2"></i></a>
                                                 </td>
                                             </tr>
+                                                <% } %>
                                             <% } %>
-                                            <% } %>
-                                            <% } %>
-                                            <%}%>
+                                        <% } %>
                                         </tbody>
                                     </table>
-
+                                        
                                 </div>
                             </div>
                         </div>

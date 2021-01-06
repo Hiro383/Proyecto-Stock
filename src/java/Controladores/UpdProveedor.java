@@ -75,18 +75,22 @@ public class UpdProveedor extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession ses = request.getSession();
+            HttpSession ses = request.getSession();
+            int id_proveedor = Integer.parseInt(request.getParameter("txtId_proveedor"));
             String rut_proveedor = request.getParameter("txtRut_Proveedor");
             ProveedorDAO objProveedorDAO = new ProveedorDAO();
             Proveedor objProveedor = new Proveedor();
             Proveedor objProveedorMod = new Proveedor();
             
-             objProveedor.setRut_proveedor(rut_proveedor);
+            objProveedor.setId_proveedor(id_proveedor);
+            objProveedor.setRut_proveedor(rut_proveedor);
             objProveedor.setNombre_proveedor(request.getParameter("txtNombre_Proveedor"));
             objProveedor.setRazon_social_proveedor(request.getParameter("txtRazonSocial_Proveedor"));
             objProveedor.setFono_proveedor(request.getParameter("txtFono_Proveedor"));
             objProveedor.setDireccion_proveedor(request.getParameter("txtDireccion_Proveedor"));
             objProveedor.setCorreo_proveedor(request.getParameter("txtCorreo_Proveedor"));
+            objProveedor.setEstado_proveedor(request.getParameter("txtEstado_Proveedor"));
+            objProveedor.setId_comuna(Integer.parseInt(request.getParameter("txtId_comuna")));
            
             
             

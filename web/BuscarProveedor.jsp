@@ -1,5 +1,6 @@
- 
-
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="Conexion.ConexionDB"%>
+<%@page import="java.sql.ResultSet"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="Modelos.Proveedor"%>
@@ -27,6 +28,9 @@
         <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
     </head>
+    <%
+        ConexionDB objCone = new ConexionDB();
+    %>
     <body class="nav-fixed">
         <jsp:include page="Header.jsp"></jsp:include>
         <div id="layoutSidenav">
@@ -50,7 +54,7 @@
                         <div class="card mb-4">
                             <div class="card-header">Extended DataTables</div>
                             <div class="card-body">
-                                <form class="form-inline" action="BuscarUsuario" method="post" autocomplete="off">
+                                <form class="form-inline" action="BuscarProveedor" method="post" autocomplete="off">
                                     <div id="dataTable_filter" class="dataTables_filter">
                                         <label>Buscar
                                             &nbsp;<input type="search" name="txtBuscar" id="txtBuscar" class="form-control form-control-sm" placeholder="" aria-controls="dataTable">
@@ -69,9 +73,24 @@
                                                 <th>Correo</th>
                                                 <th>Direccion</th>
                                                 <th>Fono</th>
+                                                <th>Estado</th>
+                                                <th>Comuna</th>
                                                 <th colspan="2">Acciones</th>
                                             </tr>
                                         </thead>
+                                        <tfoot>                                          
+                                            <tr>
+                                                <th>Rut </th>
+                                                <th>Nombre</th>
+                                                <th>Razon Social</th>
+                                                <th>Correo</th>
+                                                <th>Direccion</th>
+                                                <th>Fono</th>
+                                                <th>Estado</th>
+                                                <th>Comuna</th>
+						<th>Acciones</th>
+                                            </tr>
+                                        </tfoot>
                                     <%
                                         HttpSession sessionMostrar = request.getSession();
                                         List<Proveedor> lista = new ArrayList<Proveedor>();
@@ -91,6 +110,25 @@
                                                 <td><%= objProveedor.getCorreo_proveedor() %></td>
                                                 <td><%= objProveedor.getDireccion_proveedor() %></td>
                                                 <td><%= objProveedor.getFono_proveedor() %></td>
+                                                <td><%= objProveedor.getEstado_proveedor() %></td>
+                                                <td>
+                                                    <%
+                                                        try 
+                                                        {
+                                                            objCone.getConn();
+                                                            String query = "SELECT nombre_comuna FROM comuna where id_comuna = "+objProveedor.getId_comuna();
+                                                            PreparedStatement psI;
+                                                            ResultSet rs;
+                                                            psI = objCone.getConn().prepareStatement(query);
+                                                            rs = psI.executeQuery();
+                                                            while (rs.next()) {
+                                                                out.println(rs.getString(1));
+                                                            }
+                                                        } 
+                                                        catch(Exception e) {
+                                                        }
+                                                            %>
+                                                </td>
                                                 <td>
                                                     <a href="ModProveedor?rut_proveedor=<%= objProveedor.getRut_proveedor()%>" class="btn btn-datatable btn-icon btn-transparent-dark" role="button" aria-pressed="true"><i data-icon="Y"></i></a>
                                                     <a href="DelProveedor?rut_proveedor=<%= objProveedor.getRut_proveedor() %>" class="btn btn-datatable btn-icon btn-transparent-dark" role="button" aria-pressed="true"><i data-feather="trash-2"></i></a>

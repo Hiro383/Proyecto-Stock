@@ -83,12 +83,15 @@ public class BuscarProveedor extends HttpServlet {
         String dato = request.getParameter("txtBuscar");
         List<Proveedor> lista = objDAOproveedor.buscar(dato);
         for (Proveedor p : lista) {
+            p.getId_proveedor();
             p.getRut_proveedor();
             p.getNombre_proveedor();
             p.getRazon_social_proveedor();
             p.getCorreo_proveedor();
             p.getDireccion_proveedor();
             p.getFono_proveedor();
+            p.getEstado_proveedor();
+            p.getId_comuna();
                         
         }
         ses.setAttribute("lstBuscarProveedor", lista);

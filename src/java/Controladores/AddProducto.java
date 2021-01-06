@@ -82,66 +82,15 @@ public class AddProducto extends HttpServlet {
         
         ProductoDAO objProductoDAO = new ProductoDAO();
         Producto objProducto = new Producto();
-        String texto = request.getParameter("txtCodigo_activo_producto");
-        objProducto.setId_producto(request.getParameter("txtId_producto"));
+        objProducto.setId_producto(Integer.parseInt(request.getParameter("txtId_producto")));
         objProducto.setNombre_producto(request.getParameter("txtNombre_producto"));
         objProducto.setDescripcion_producto(request.getParameter("txtDescripcion_producto"));
-        objProducto.setCantidad_producto(Integer.parseInt(request.getParameter("txtCantidad_producto")));
-        int cantidad = Integer.parseInt(request.getParameter("txtCantidad_producto"));
-        objProducto.setValorNeto_producto(Integer.parseInt(request.getParameter("txtValorNeto_producto")));
-        int valor_neto = Integer.parseInt(request.getParameter("txtValorNeto_producto"));
-        double iva = 1.19;
-        double valor_iva = valor_neto * (iva);
-        double valor_redondeado = Math.round(valor_iva);
-        objProducto.setValorIva_producto((int) valor_redondeado);
-        int valor_total = (int)valor_redondeado*cantidad;
-        objProducto.setValorTotal_producto(valor_total);
+        objProducto.setEstado_producto(request.getParameter("txtEstado_producto"));
+        objProducto.setValor_producto(Integer.parseInt(request.getParameter("txtValor_producto")));
         objProducto.setMarca_producto(request.getParameter("txtMarca_producto"));
         objProducto.setSerial_producto(request.getParameter("txtSerial_producto"));
-        objProducto.setStock_minimo_producto(Integer.parseInt(request.getParameter("txtStock_minimo_producto")));
-        String estado_stock  = "";
-        if(objProducto.getCantidad_producto() > objProducto.getStock_minimo_producto()){
-            estado_stock = "Stock";
-            objProducto.setEstado_producto(estado_stock);
-        }else if(objProducto.getCantidad_producto() < objProducto.getStock_minimo_producto() && objProducto.getCantidad_producto() >=1){
-            estado_stock = "Reponer Stock";
-            objProducto.setEstado_producto(estado_stock);
-        }else{
-            estado_stock = "Sin Stock";
-            objProducto.setEstado_producto(estado_stock);
-        }
-        try {
-            Date startDate=new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dtpFechaIngreso"));
-            objProducto.setFecha_ingreso_producto(startDate);
-        } catch (ParseException ex) {
-            System.out.print(ex);
-        }
-        try {
-            Date startDate=new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dtpFechaSalida"));
-            objProducto.setFecha_salida_producto(startDate);
-        } catch (ParseException ex) {
-            System.out.print(ex);
-        }
-        try {
-            Date startDate=new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dtpFechaCapital"));
-            objProducto.setFecha_capital_producto(startDate);
-        } catch (ParseException ex) {
-            System.out.print(ex);
-        }
-        try {
-            Date startDate=new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dtpFechaVencimiento"));
-            objProducto.setFecha_vencimiento_producto(startDate);
-        } catch (ParseException ex) {
-            System.out.print(ex);
-        }
-        //3 fechas faltan
-        if(texto.equalsIgnoreCase("")==true){
-            objProducto.setCodigo_activo_producto(0);
-        }else{
-            objProducto.setCodigo_activo_producto(Integer.parseInt(request.getParameter("txtCodigo_activo_producto")));
-        }
-        objProducto.setNumero_orden_compra(Integer.parseInt(request.getParameter("txtNumero_orden_compra")));
-        objProducto.setCodigo_bodega(request.getParameter("txtCodigo_bodega"));
+        objProducto.setStock_minimo(Integer.parseInt(request.getParameter("txtStock_minimo_producto")));
+        objProducto.setId_proveedor(Integer.parseInt(request.getParameter("txtId_proveedor")));
         objProducto.setId_tipo_producto(Integer.parseInt(request.getParameter("txtId_tipo_producto")));
         objProducto.setId_tipo_unidad(Integer.parseInt(request.getParameter("txtId_tipo_unidad")));
 

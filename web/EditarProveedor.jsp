@@ -1,4 +1,7 @@
 <%@page import="Modelos.Proveedor"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="Conexion.ConexionDB"%>
+<%@page import="java.sql.ResultSet"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -22,6 +25,8 @@
             Proveedor objProveedor= (Proveedor) sessionMostrar.getAttribute("objProveedor");
             String rut_proveedor = (String)sessionMostrar.getAttribute("rut_proveedor");
             objProveedor.setRut_proveedor(rut_proveedor);
+            
+            ConexionDB objCone = new ConexionDB();
     %>
         <jsp:include page="Header.jsp"></jsp:include>
             <div id="layoutSidenav">
@@ -39,7 +44,16 @@
                                         <div class="card-body">
                                             <form action="UpdProveedor" id="frmAgregarProveedor" name="frmAgregarProveedor" method="post" autocomplete="off" accept-charset="ISO-8859-1">
                                                 <div class="form-row">
-
+                                                    
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="small mb-1" for="inputFirstName"><i data-feather="user-x"></i> Código</label>
+                                                            <div class="form-group" id="fg_rut">
+                                                                <input class="form-control py-4" id="txtId_proveedor"  name="txtId_proveedor"  type="text" placeholder="11.111.111.1" readonly="" value="<%= objProveedor.getId_proveedor()%>"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                            
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label class="small mb-1" for="inputFirstName"><i data-feather="user-x"></i> Rut</label>
@@ -78,7 +92,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="small mb-1" for="inputLastName"><i data-feather="phone"></i> Telefono</label>
+                                                            <label class="small mb-1" for="inputLastName"><i data-feather="phone"></i> Dirección</label>
                                                             <div class="form-group" id="fg_direccion">
                                                                 <input class="form-control py-4" id="txtDireccion_Proveedor" name="txtDireccion_Proveedor" type="text" placeholder="Ingrese Dirección" value="<%= objProveedor.getDireccion_proveedor() %>" />
                                                             </div>
@@ -86,12 +100,45 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="small mb-1" for="inputLastName"><i data-feather="phone"></i> Telefono</label>
+                                                            <label class="small mb-1" for="inputLastName"><i data-feather="phone"></i> Correo</label>
                                                             <div class="form-group"  id="fg_correo">
                                                                 <input class="form-control py-4" id="txtCorreo_Proveedor" name="txtCorreo_Proveedor" type="email" aria-describedby="emailHelp" placeholder="proveedor@ejemplo.com" value="<%= objProveedor.getCorreo_proveedor() %>"/>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="small mb-1" for="inputFirstName"><i data-feather="user-x"></i> Estado</label>
+                                                            <div class="form-group" id="fg_estado">
+                                                                <input class="form-control py-4" id="txtEstado_Proveedor"  name="txtEstado_Proveedor"  type="text" maxlength="1" value="<%= objProveedor.getEstado_proveedor()%>"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">												
+                                                    <div class="form-group">
+                                                        <label for="exampleSelect1" >Comuna</label>
+                                                        <select class="form-control" id="txtId_comuna" name="txtId_comuna">
+                                                            <%
+                                                                try {
+                                                                    objCone.getConn();
+                                                                    String query = "SELECT id_comuna, nombre_comuna FROM comuna";
+                                                                    PreparedStatement psI;
+                                                                    ResultSet rs;
+                                                                    psI = objCone.getConn().prepareStatement(query);
+                                                                    rs = psI.executeQuery();
+                                                                    while (rs.next()) {
+                                                                        if (rs.getInt(1) == objProveedor.getId_comuna()) {
+                                                                            out.println("<option value = " + rs.getInt(1) + " selected>" + rs.getString(2)+"</option>");
+                                                                        } else {
+                                                                            out.println("<option value = " + rs.getInt(1) + ">" + rs.getString(2)+"</option>");
+                                                                        }
+                                                                    }
+                                                                } catch (Exception e) {
+                                                                }
+                                                            %>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                                 </div>
                                                             <div class="form-group mt-4 mb-0">
                                                     <input class="btn btn-primary btn-block" name="btnGuardar" type="submit" value="Editar Proveedor">

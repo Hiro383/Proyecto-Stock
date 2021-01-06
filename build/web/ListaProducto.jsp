@@ -1,6 +1,5 @@
+<%@page import="java.util.List"%>
 <%@page import="java.text.DecimalFormat"%>
-<%@page import="Modelos.Bodega"%>
-<%@page import="DAO.BodegaDAO"%>
 <%@page import="Modelos.TipoProducto"%>
 <%@page import="Modelos.TipoUnidad"%>
 <%@page import="DAO.TipoProductoDAO"%>
@@ -72,22 +71,13 @@
                                              <tr>
                                                 <th>Codigo Producto</th>
                                                 <th>Nombre Producto</th>
-                                                <th>Descripci?n Producto</th>
+                                                <th>Descripción Producto</th>
                                                 <th>Estado Producto</th>
-                                                <th>Valor Neto</th>
-                                                <th>Valor IVA</th>
-                                                <th>Cantidad Producto</th>
-                                                <th>Valor Total</th>
+                                                <th>Valor</th>
                                                 <th>Marca Producto</th>
                                                 <th>Serial Producto</th>
                                                 <th>Stock Minimo</th>
-                                                <th>Fecha Ingreso</th>
-                                                <th>Fecha Salida</th>
-                                                <th>Fecha Capital</th>
-                                                <th>Fecha Vencimiento</th>
-                                                <th>Codigo Activo</th>
-                                                <th>Numero Orden Compra</th>
-                                                <th>Ubicaci?n Bodega</th>
+                                                <th>Proveedor</th>
                                                 <th>Tipo Producto</th>
                                                 <th>Tipo Unidad</th>
 						<th colspan="2">Acciones</th>
@@ -98,13 +88,11 @@
                                             //agrego los 2 tipos
                                             TipoUnidadDAO objDAOTipoUnidad = new TipoUnidadDAO();
                                             TipoProductoDAO objDAOTipoProducto = new TipoProductoDAO();
-                                            BodegaDAO objDAOBodega = new BodegaDAO();
                                             
                                             //2 arrays list
                                             ArrayList<Producto> lstProducto = objDAOProducto.listarProducto();
                                             ArrayList<TipoUnidad> lstTipoUnidad = objDAOTipoUnidad.listarTipoUnidad();
                                             ArrayList<TipoProducto> lstTipoProducto = objDAOTipoProducto.listarTipoProducto();
-                                            ArrayList<Bodega> lstBodega = objDAOBodega.listaBodega();
                                             
                                             //2 iterator y null
                                             Iterator<Producto> iter = lstProducto.iterator();
@@ -118,12 +106,9 @@
                                             TipoProducto objTipoProducto = null;
                                             TipoProducto objTipoProductoXID = new TipoProducto();
                                             
-                                            Iterator<Bodega> iterBodega = lstBodega.iterator();
-                                            Bodega objBodega = null;
-                                            Bodega objBodegaXID = new Bodega();
+                                       
                                             
-                                            
-                                            
+                                             
                                             SimpleDateFormat formatter=new SimpleDateFormat("dd-MM-yyyy" /*Se puede agregar HH:mm:ss
                                             para obtener horas, minutos y segundos*/);
                                             String fechaIngreso = "";
@@ -136,10 +121,6 @@
                                             
                                         %>
                                         
-                                        <%
-                                            while(iterBodega.hasNext()){
-                                                objBodega = iterBodega.next();
-                                        %>
                                         
                                         <%
                                                 
@@ -166,14 +147,6 @@
                                                 int id_tipo_producto = objProducto.getId_tipo_producto();
                                                 objTipoProductoXID.setId_tipo_producto(id_tipo_producto);
                                                 objTipoProductoXID = objDAOTipoProducto.buscarPorId(objTipoProductoXID);
-                                                
-                                                String codigo_bodega = objProducto.getCodigo_bodega();
-                                                objBodegaXID.setCodigo_bodega(codigo_bodega);
-                                                objBodegaXID = objDAOBodega.buscarPorId(objBodegaXID);
-                                                
-                                                
-                                                
-
                                             %>
                                             
                                            
@@ -183,33 +156,12 @@
                                                 <td><%= objProducto.getId_producto()%></td>
                                                 <td><%= objProducto.getNombre_producto()%></td>
                                                 <td><%= objProducto.getDescripcion_producto()%></td>
-                                                <td style="text-align: center;"><%
-                                                    if(objProducto.getEstado_producto().equalsIgnoreCase("Stock")){
-                                                        %>
-                                                        <div  class="badge badge-success badge-pill"><%=objProducto.getEstado_producto()%></div>
-                                                    <%}else if(objProducto.getEstado_producto().equalsIgnoreCase("Reponer Stock")){
-                                                        %>
-                                                        <div class="badge badge-warning badge-pill"><%=objProducto.getEstado_producto()%></div>
-                                                     <%}else{
-                                                     %>
-                                                     <div class="badge badge-danger badge-pill" ><%=objProducto.getEstado_producto()%></div>
-                                                     <%}
-                                                    %>
-                                                </td>
-                                                <td>$<%= formateador.format(objProducto.getValorNeto_producto())%></td>
-                                                <td>$<%= formateador.format(objProducto.getValorIva_producto())%></td>
-                                                <td><%= objProducto.getCantidad_producto()%></td>
-                                                <td >$<%= formateador.format(objProducto.getValorTotal_producto())%></td>                                  
+                                                <td><%= objProducto.getEstado_producto()%></td>
+                                                <td><%= formateador.format(objProducto.getValor_producto())%></td>                                  
                                                 <td><%= objProducto.getMarca_producto()%></td>
                                                 <td><%= objProducto.getSerial_producto()%></td>
-                                                <td><%= objProducto.getStock_minimo_producto()%></td>
-                                                <td ><%= fechaIngreso = formatter.format(objProducto.getFecha_ingreso_producto())%></td>
-                                                <td ><%= fechaSalida = formatter.format(objProducto.getFecha_salida_producto())%></td>
-                                                <td ><%= fechaCapital = formatter.format(objProducto.getFecha_capital_producto())%></td>
-                                                <td ><%= fechaVencimiento = formatter.format(objProducto.getFecha_vencimiento_producto())%></td>
-                                                <td><%= objProducto.getCodigo_activo_producto()%></td>
-                                                <td><%= objProducto.getNumero_orden_compra()%></td>
-                                                <td><%= objBodegaXID.getUbicacion_bodega()%></td>
+                                                <td><%= objProducto.getStock_minimo()%></td>
+                                                <td><%= objProducto.getId_proveedor() %></td>
                                                 <td><%= objTipoProductoXID.getCategoria_tipo_producto()%></td>
                                                 <td><%= objTipoUnidadXID.getNombre_unidad()%></td>
                                                 <td>
@@ -220,7 +172,6 @@
                                                 <% } %>
                                             <% } %>
                                         <% } %>
-                                    <%}%>
                                         </tbody>
                                     </table>
                                         
